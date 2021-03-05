@@ -1,0 +1,33 @@
+<html>
+
+<head>
+  <title>PubSub</title>
+  <script src="https://cdn.socket.io/3.1.1/socket.io.min.js"
+    integrity="sha384-gDaozqUvc4HTgo8iZjwth73C6dDDeOJsAgpxBcMpZYztUfjHXpzrpdrHRdVp8ySO" crossorigin="anonymous">
+  </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="content"></div>
+  <script>
+    $(document).ready(function () {
+      var socket = io({transports: ['websocket'], upgrade: false});
+      var content = $('#content');
+      
+      socket.on('message', function (message) {
+        content.append(`<p>${message}</p>`)
+      });
+
+      socket.on('disconnect', function () {
+        console.log('disconnected');
+        content.html("<b>Disconnected!</b>");
+      });
+
+      socket.connect();
+    });
+  </script>
+</body>
+
+</html>
