@@ -36,12 +36,12 @@ socket.on('connection', _ => {
   console.log(' %s sockets connected', socket.engine.clientsCount);
 });
 
-subscribe.on("message", function (_, message) {
+subscribe.on("message", (_, message) => {
   console.log
   socket.emit('message', message)
 });
 
-client.on('disconnect', function () {
+client.on('disconnect', () => {
   subscribe.quit();
 });
 
